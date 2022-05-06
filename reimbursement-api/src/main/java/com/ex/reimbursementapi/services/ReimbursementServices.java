@@ -3,6 +3,7 @@ package com.ex.reimbursementapi.services;
 import com.ex.reimbursementapi.entities.Employee;
 import com.ex.reimbursementapi.entities.Reimbursement;
 import com.ex.reimbursementapi.entities.ReimbursementDTO;
+import com.ex.reimbursementapi.exceptions.CannotSendEmailWithoutReviewException;
 import com.ex.reimbursementapi.repositories.EmployeeRepository;
 import com.ex.reimbursementapi.repositories.ReimbursementRepository;
 import org.springframework.stereotype.Service;
@@ -62,11 +63,17 @@ public class ReimbursementServices {
         return "All requests have been processed";
 
 
+    }
 
-
-
+//    public int requestEmailApi(Reimbursement approved) {
+//
+//        if (approved.getStatus().equals("Approved"))
+//
+//            return approved.getId();
+//
+//    }
     }
 
 
 
-}
+

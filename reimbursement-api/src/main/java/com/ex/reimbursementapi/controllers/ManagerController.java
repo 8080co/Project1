@@ -1,15 +1,13 @@
 package com.ex.reimbursementapi.controllers;
 
+import com.ex.reimbursementapi.entities.Reimbursement;
 import com.ex.reimbursementapi.repositories.EmployeeRepository;
 import com.ex.reimbursementapi.repositories.ReimbursementRepository;
 import com.ex.reimbursementapi.services.ReimbursementServices;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("manager")
@@ -34,6 +32,11 @@ public class ManagerController {
         return reimbursementServices.reviewReimbursements();
 //        return ResponseEntity.ok().build().toString();
     }
+
+//    @PostMapping(path="request-email")
+//    public Reimbursement requestEmailApi (){
+//        return reimbursementServices.requestEmailApi();
+//    }
 }
 
 
