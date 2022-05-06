@@ -1,5 +1,4 @@
-package com.ex.reimbursementapi.entities;
-
+package com.example.emailapi.entities;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +22,7 @@ public class Employee {
     @Column(name = "_name", unique = true)
     private String name;
 
-// position is set 1 of 2 options( employee or manager)
+    // position is set 1 of 2 options( employee or manager)
     @Column(name = "position")
     private String position;
 

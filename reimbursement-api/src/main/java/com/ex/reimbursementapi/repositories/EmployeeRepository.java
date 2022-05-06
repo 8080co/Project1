@@ -18,7 +18,9 @@ public interface EmployeeRepository  extends JpaRepository <Employee, Integer> {
 
     Employee getEmployeeById(@Param("id") Integer integer);
 
+    //get list of employees filtered by their position(employee or manager)
     List<Employee> findByPosition(@Param("position") String position);
 
+    //get a single employee based off their email(which is unique)
     Employee findByEmail(@Param("email") String email);
 }

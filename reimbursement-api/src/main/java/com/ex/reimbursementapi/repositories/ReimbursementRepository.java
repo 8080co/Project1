@@ -18,6 +18,7 @@ public interface ReimbursementRepository  extends JpaRepository<Reimbursement, I
     //employee can use to get one of their current requests by id
     List<Reimbursement> getAllById( @Param("employee_id") int id);
 
+    //employee can view all their requests
     List<Reimbursement> getAllByEmployeeName(@Param("employee_name")String employeeName);
 
 

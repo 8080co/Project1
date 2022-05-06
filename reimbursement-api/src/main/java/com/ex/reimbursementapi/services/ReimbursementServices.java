@@ -23,7 +23,13 @@ public class ReimbursementServices {
         this.employeeRepository = employeeRepository;
         this.reimbursementRepository = reimbursementRepository;
     }
-//for  all employees
+    //for  all employees
+
+    /**
+     * This method sets status to 'pending' by default, created the new reimbursment request and saves it
+     * @param newRequest A DTO that only takes name, amount , item and employeeId
+     * @return the new reimbursement request that was just created
+     */
     public Reimbursement submitReimbursementRequest(ReimbursementDTO newRequest){
         Reimbursement reimbursement = new Reimbursement();
 
@@ -46,13 +52,19 @@ public class ReimbursementServices {
 
     //for managers only
 
+    /**
+     * This method returns a status a string signifying the status of the application
+     * This method runs till all requests in server are dealt with
+     * The decision factor was arbitrary. In this case , if the amount is above 1000, request will be declined
+     * @return either 'Approved' or 'Declined' or 'All requests have been processed'
+     */
    public String reviewReimbursements(){
         List <Reimbursement> pendingRequests= reimbursementRepository.findAll();
         for (Reimbursement request:pendingRequests) {
             String name = request.getEmployeeName();
             String amount = String.valueOf(request.getAmount());
             if (request.getStatus().equals("Pending") && request.getAmount() >= 1000) {
-                request.setStatus("Declined");
+                request.setStatus("Denied");
                 return name+"'s $"+amount+" reimbursement request declined. Company reimbursement limit reached for the year";
             }
             else if(request.getStatus().equals("Pending")) {
@@ -65,13 +77,15 @@ public class ReimbursementServices {
 
     }
 
-//    public int requestEmailApi(Reimbursement approved) {
+//    public int requestEmailApi(ReimbursementDTO reviewedReimbursements) {
+//        Reimbursement reimbursement = new Reimbursement();
 //
-//        if (approved.getStatus().equals("Approved"))
+//        if (reviewedReimbursements.getStatus().equals("Approved") || reviewedReimbursements.getStatus().equals("Denied"))
 //
-//            return approved.getId();
-//
+//            return reviewedReimbursements.getId();
+//        return 0;
 //    }
+
     }
 
 

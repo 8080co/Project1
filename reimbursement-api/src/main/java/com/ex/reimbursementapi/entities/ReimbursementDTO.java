@@ -8,6 +8,8 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+
+// This was created so that a response body with only necessary info needed to be sent to create a request
 public class ReimbursementDTO {
 
     private String employeeName;
