@@ -28,7 +28,7 @@ public class ManagerController {
     private EmployeeRepository employeeRepository;
 
 
-// VIew all requests in system
+    // View all requests in system
     @GetMapping(path="view-all-requests")
     public ResponseEntity getAllReimbursements(){
         return ResponseEntity.ok(reimbursementRepository.findAll());
@@ -36,17 +36,14 @@ public class ManagerController {
 
     /**
      * @return - a string signifying status of sent request
+     * Also sends the email api a request to send an email to the user regarding the status of their  reviewed request
      */
     @PutMapping(path="review-requests")
     public String reviewRequests(){
         return reimbursementServices.reviewReimbursements();
     }
 
-//    @PostMapping(path="request-email")
-//    public ResponseEntity requestEmailApi ( @RequestBody ReimbursementDTO reimbursementDTO){
-//        reimbursementServices.requestEmailApi(reimbursementDTO);
-//        return ResponseEntity.ok().build();
-//    }
+
 }
 
 

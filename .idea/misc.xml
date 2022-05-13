@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/reimbursement-api/pom.xml" />
+        <option value="$PROJECT_DIR$/email-api/pom.xml" />
       </list>
     </option>
   </component>

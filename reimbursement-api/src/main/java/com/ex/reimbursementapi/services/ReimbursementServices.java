@@ -18,6 +18,8 @@ public class ReimbursementServices {
     private EmployeeRepository employeeRepository;
     private ReimbursementRepository reimbursementRepository;
 
+    private EmailRequester emailRequester;
+
     public ReimbursementServices(EmployeeRepository employeeRepository, ReimbursementRepository reimbursementRepository) {
 
         this.employeeRepository = employeeRepository;
@@ -26,7 +28,7 @@ public class ReimbursementServices {
     //for  all employees
 
     /**
-     * This method sets status to 'pending' by default, created the new reimbursment request and saves it
+     * This method sets status to 'pending' by default, created the new reimbursement request and saves it
      * @param newRequest A DTO that only takes name, amount , item and employeeId
      * @return the new reimbursement request that was just created
      */
@@ -41,9 +43,11 @@ public class ReimbursementServices {
         Employee employee = employeeRepository.getEmployeeById(employeeId);
         reimbursement.setEmployee(employee);
         reimbursement.setStatus("Pending");
-
+        System.out.println(employee);
+        System.out.println(reimbursement);
         reimbursementRepository.save(reimbursement);
-
+        emailRequester = new EmailRequester();
+        emailRequester.sendRequest(employee.getEmail(),"Request recieved","Your request for reimbursement has been recieved.");
         return reimbursement;
 
     }
@@ -53,7 +57,7 @@ public class ReimbursementServices {
     //for managers only
 
     /**
-     * This method returns a status a string signifying the status of the application
+     * This method returns a string signifying the status of the application
      * This method runs till all requests in server are dealt with
      * The decision factor was arbitrary. In this case , if the amount is above 1000, request will be declined
      * @return either 'Approved' or 'Declined' or 'All requests have been processed'
@@ -63,12 +67,17 @@ public class ReimbursementServices {
         for (Reimbursement request:pendingRequests) {
             String name = request.getEmployeeName();
             String amount = String.valueOf(request.getAmount());
+            String item = request.getItem();
             if (request.getStatus().equals("Pending") && request.getAmount() >= 1000) {
                 request.setStatus("Denied");
-                return name+"'s $"+amount+" reimbursement request declined. Company reimbursement limit reached for the year";
+                emailRequester = new EmailRequester();
+                emailRequester.sendRequest(request.getEmployee().getEmail(),"Request Denied","Your $" +amount+" reimbursement request for "+ item+ "has been denied. Company reimbursement limit reached for the year");
+                return name+"'s $"+amount+" reimbursement request for "+ item+ "has been denied. Company reimbursement limit reached for the year";
+
             }
             else if(request.getStatus().equals("Pending")) {
                 request.setStatus("Approved");
+                emailRequester.sendRequest(request.getEmployee().getEmail(),"Request Approved","Your $" +amount+" reimbursement request for "+ item+ "has been approved. Payment should be processed in 2 to 5 business days");
                 return "Approved";
             }
         }

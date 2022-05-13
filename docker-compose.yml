@@ -15,12 +15,12 @@ services:
     image: kj/email-api
     container_name: email_app
     restart: always
-    environment:
-      - DB_URL=jdbc:mysql://34.70.141.197:3306/ReimbursementsDB
     ports:
       - 7000:7000
-    depends_on:
-      - db
+    environment:
+      - EMAIL_USER=temp
+      - EMAIL_APP_PASS=temp
+
   db:
     image: mysql
     container_name: db
@@ -30,3 +30,4 @@ services:
       - MYSQL_ROOT_PASSWORD=""
       - MYSQL_DATABASE=ReimbursementsDB
       - MYSQL_ROOT_USER=root
+

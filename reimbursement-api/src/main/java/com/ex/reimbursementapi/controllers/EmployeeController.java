@@ -52,6 +52,7 @@ public class EmployeeController {
     /**
      * @param newSubmission A DTO consisting only necessary info needed to create and submit a new request
      * @return a 200 ok status if all goes well
+     * Also sends a request to the email api to send an email notifying the user
      */
     @PostMapping(path = "submit")
     public ResponseEntity submitReimbursement(@RequestBody ReimbursementDTO newSubmission){
